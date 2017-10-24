@@ -37,9 +37,11 @@ module.exports = function (grunt) {
           'src/headers/license.js',
           'src/headers/intro.js',
           'src/internal/trycatch.js',
+          'src/internal/util.js',
           'src/module.js',
           'src/factory.js',
           'src/safeApply.js',
+          'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
         dest: 'dist/rx.angular.js'
