@@ -40,7 +40,6 @@ module.exports = function (grunt) {
           'src/module.js',
           'src/factory.js',
           'src/safeApply.js',
-          'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
         dest: 'dist/rx.angular.js'
@@ -53,7 +52,6 @@ module.exports = function (grunt) {
           'src/module.js',
           'src/factory.js',
           'src/safeApply.js',
-          'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
         dest: 'modules/rx.lite.angular/rx.lite.angular.js'
@@ -66,7 +64,6 @@ module.exports = function (grunt) {
           'src/module.js',
           'src/factory.js',
           'src/safeApply.js',
-          'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
         dest: 'modules/rx.lite.angular.compat/rx.lite.angular.compat.js'
