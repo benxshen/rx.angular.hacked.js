@@ -39,7 +39,6 @@ module.exports = function (grunt) {
           'src/internal/trycatch.js',
           'src/module.js',
           'src/factory.js',
-          'src/observeonscope.js',
           'src/safeApply.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
@@ -53,7 +52,6 @@ module.exports = function (grunt) {
           'src/internal/trycatch.js',
           'src/module.js',
           'src/factory.js',
-          'src/observeonscope.js',
           'src/safeApply.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
@@ -67,7 +65,6 @@ module.exports = function (grunt) {
           'src/internal/trycatch.js',
           'src/module.js',
           'src/factory.js',
-          'src/observeonscope.js',
           'src/safeApply.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
