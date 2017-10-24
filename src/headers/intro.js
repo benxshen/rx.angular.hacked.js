@@ -20,7 +20,7 @@
 
   // Because of build optimizers
   if (typeof define === 'function' && define.amd) {
-    define(['rx', 'angular', 'exports'], function (Rx, angular, exports) {
+    define(['rxjs', 'angular', 'exports'], function (Rx, angular, exports) {
       root.Rx = factory(root, exports, Rx, angular);
       return root.Rx;
     });
