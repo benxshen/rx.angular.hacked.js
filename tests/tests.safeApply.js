@@ -1,6 +1,6 @@
 module('safeApply');
 
-asyncTest('calls $apply onNext', function () {
+asyncTest('calls $apply next', function () {
   var injector = angular.injector(['ng', 'rx']);
 
   var scope = injector.get('$rootScope').$new();
@@ -10,7 +10,7 @@ asyncTest('calls $apply onNext', function () {
   var result;
 
   source
-    .debounce(500)
+    .debounceTime(500)
     .safeApply(scope,
       function (val) {
         result = val;
@@ -24,12 +24,12 @@ asyncTest('calls $apply onNext', function () {
       ok(result === 2);
     });
 
-  source.onNext( 2 );
+  source.next( 2 );
 
   expect(1);
 });
 
-asyncTest('calls $apply onError', function () {
+asyncTest('calls $apply error', function () {
   var injector = angular.injector(['ng', 'rx']);
 
   var scope = injector.get('$rootScope').$new();
@@ -41,7 +41,7 @@ asyncTest('calls $apply onError', function () {
   var expectedError = {details: "expected error details"};
 
   source
-    .debounce(500)
+    .debounceTime(500)
     .safeApply(scope,
       function (val) {
         result = val;
@@ -57,12 +57,13 @@ asyncTest('calls $apply onError', function () {
       ok(result === expectedError);
     });
 
-  source.onError( expectedError );
+
+  source.error( expectedError );
 
   expect(1);
 });
 
-asyncTest('calls $apply onComplete', function () {
+asyncTest('calls $apply complete', function () {
   var injector = angular.injector(['ng', 'rx']);
 
   var scope = injector.get('$rootScope').$new();
@@ -74,7 +75,7 @@ asyncTest('calls $apply onComplete', function () {
   var expectedError = {};
 
   source
-    .debounce(500)
+    .debounceTime(500)
     .safeApply(scope,
       function (val) {
         result = val;
@@ -94,8 +95,8 @@ asyncTest('calls $apply onComplete', function () {
     });
 
   start();
-  source.onNext( 2 );
-  source.onCompleted();
+  source.next( 2 );
+  source.complete();
 
   expect(1);
 });

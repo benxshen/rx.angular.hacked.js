@@ -1,28 +1,28 @@
   function noop () { }
 
-  Rx.Observable.prototype.safeApply = function($scope, onNext, onError, onComplete){
-    onNext = angular.isFunction(onNext) ? onNext : noop;
-    onError = angular.isFunction(onError) ? onError : noop;
-    onComplete = angular.isFunction(onComplete) ? onComplete : noop;
+  Rx.Observable.prototype.safeApply = function($scope, next, error, complete){
+    next = angular.isFunction(next) ? next : noop;
+    error = angular.isFunction(error) ? error : noop;
+    complete = angular.isFunction(complete) ? complete : noop;
 
     return this
       .takeWhile(function () {
         return !$scope.$$destroyed;
       })
-      .tap(
+      .do(
         function (data){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onNext(data) :
-            $scope.$apply(function () { onNext(data); });
+            next(data) :
+            $scope.$apply(function () { next(data); });
         },
-        function (error){
+        function (errorValue){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onError(error) :
-            $scope.$apply(function () { onError(error); });
+            error(errorValue) :
+            $scope.$apply(function () { error(errorValue); });
         },
         function (){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onComplete() :
-            $scope.$apply(function () { onComplete(); });
+            complete() :
+            $scope.$apply(function () { complete(); });
         });
   };

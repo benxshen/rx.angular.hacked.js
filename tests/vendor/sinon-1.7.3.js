@@ -2410,7 +2410,7 @@ if (!this.sinon && commonJSModule) {
             },
             fail: function (message) {
                 var exception = new Error(message);
-                exception.name = "ExpectationError";
+                exception.name = "Expectatierror";
 
                 throw exception;
             }

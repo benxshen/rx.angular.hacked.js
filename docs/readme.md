@@ -134,14 +134,14 @@ Unit Tests:
 * * *
 
 
-### <a id="safeapplyscope-fn"></a>`safeApply(scope, [onNext])`
+### <a id="safeapplyscope-fn"></a>`safeApply(scope, [next])`
 <a href="#safeapplyscope-fn">#</a> [&#x24C8;](https://github.com/Reactive-Extensions/rx.angular.js/blob/master/src/safeApply.js "View in source")
 
 Ensures a [`Scope.$digest()`](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) is scheduled to be called after the given side-effect function is run. This is equivalent to a [`.do()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/do.md) operator that automatically wraps its function in a [`Scope.$apply()`](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply) if an apply is not already in progress.
 
 #### Arguments
-1. `scope` *(`$rootScope.Scope`)*: The scope to apply the `onNext` function with.
-2. `[onNext]` *(`Function`)*: Function to invoke for each element in the observable sequence.
+1. `scope` *(`$rootScope.Scope`)*: The scope to apply the `next` function with.
+2. `[next]` *(`Function`)*: Function to invoke for each element in the observable sequence.
 
 #### Returns
 

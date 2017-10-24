@@ -15,7 +15,7 @@
     freeModule = objectTypes[typeof module] && module && !module.nodeType && module,
     moduleExports = freeModule && freeModule.exports === freeExports && freeExports,
     freeGlobal = objectTypes[typeof global] && global;
-  
+
   if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
     root = freeGlobal;
   }
@@ -27,7 +27,7 @@
       return root.Rx;
     });
   } else if (typeof module == 'object' && module && module.exports == freeExports) {
-    module.exports = factory(root, module.exports, require('rx'), require('angular'));
+    module.exports = factory(root, module.exports, require('rxjs'), require('angular'));
   } else {
     root.Rx = factory(root, {}, root.Rx, root.angular);
   }
@@ -89,53 +89,28 @@ function thrower(e) {
   rxModule.factory('rx', ['$window', function($window) {
     $window.Rx || ($window.Rx = Rx);
 
-    var CreateObservableFunction = (function(__super__) {
-      Rx.internals.inherits(CreateObservableFunction, __super__);
-      function CreateObservableFunction(self, name, fn) {
-        this._self = self;
-        this._name = name;
-        this._fn = fn;
-        __super__.call(this);
-      }
-
-      CreateObservableFunction.prototype.subscribeCore = function (o) {
-        var fn = this._fn;
-        this._self[this._name] = function () {
+    Rx.createObservableFunction = function (self, functionName, listener) {
+      var subscribeCore = function (o) {
+        self[functionName] = function () {
           var len = arguments.length, args = new Array(len);
           for (var i = 0; i < len; i++) { args[i] = arguments[i]; }
 
-          if (angular.isFunction(fn)) {
-            var result = tryCatch(fn).apply(this, args);
-            if (result === errorObj) { return o.onError(result.e); }
-            o.onNext(result);
+          if (angular.isFunction(listener)) {
+            var result = tryCatch(listener).apply(this, args);
+            if (result === errorObj) { return o.error(result.e); }
+            o.next(result);
           } else if (args.length === 1) {
-            o.onNext(args[0]);
+            o.next(args[0]);
           } else {
-            o.onNext(args);
+            o.next(args);
           }
         };
 
-        return new InnerDisposable(this._self, this._name);
+        return function() {
+          delete self[functionName];
+        };
       };
-
-      function InnerDisposable(self, name) {
-        this._self = self;
-        this._name = name;
-        this.isDisposed = false;
-      }
-
-      InnerDisposable.prototype.dispose = function () {
-        if (!this.isDisposed) {
-          this.isDisposed = true;
-          delete this._self[this._name];
-        }
-      };
-
-      return CreateObservableFunction;
-    }(Rx.ObservableBase));
-
-    Rx.createObservableFunction = function (self, functionName, listener) {
-      return new CreateObservableFunction(self, functionName, listener).publish().refCount();
+      return Rx.Observable.create(subscribeCore).publish().refCount();
     };
 
     return $window.Rx;
@@ -143,30 +118,30 @@ function thrower(e) {
 
   function noop () { }
 
-  Rx.Observable.prototype.safeApply = function($scope, onNext, onError, onComplete){
-    onNext = angular.isFunction(onNext) ? onNext : noop;
-    onError = angular.isFunction(onError) ? onError : noop;
-    onComplete = angular.isFunction(onComplete) ? onComplete : noop;
+  Rx.Observable.prototype.safeApply = function($scope, next, error, complete){
+    next = angular.isFunction(next) ? next : noop;
+    error = angular.isFunction(error) ? error : noop;
+    complete = angular.isFunction(complete) ? complete : noop;
 
     return this
       .takeWhile(function () {
         return !$scope.$$destroyed;
       })
-      .tap(
+      .do(
         function (data){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onNext(data) :
-            $scope.$apply(function () { onNext(data); });
+            next(data) :
+            $scope.$apply(function () { next(data); });
         },
-        function (error){
+        function (errorValue){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onError(error) :
-            $scope.$apply(function () { onError(error); });
+            error(errorValue) :
+            $scope.$apply(function () { error(errorValue); });
         },
         function (){
           ($scope.$$phase || $scope.$root.$$phase) ?
-            onComplete() :
-            $scope.$apply(function () { onComplete(); });
+            complete() :
+            $scope.$apply(function () { complete(); });
         });
   };
 

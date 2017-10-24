@@ -5,7 +5,7 @@
 declare module Rx {
 
   export interface Observable<T> {
-    safeApply( scope: ng.IScope, onNext?: (value: T) => void, onError?: (error: any) => void, onComplete?: () => void ): Observable<T>;
+    safeApply( scope: ng.IScope, next?: (value: T) => void, error?: (error: any) => void, complete?: () => void ): Observable<T>;
 
     digest( scope: ng.IScope, prop: string ): Observable<T>;
   }

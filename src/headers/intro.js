@@ -13,7 +13,7 @@
     freeModule = objectTypes[typeof module] && module && !module.nodeType && module,
     moduleExports = freeModule && freeModule.exports === freeExports && freeExports,
     freeGlobal = objectTypes[typeof global] && global;
-  
+
   if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
     root = freeGlobal;
   }
@@ -25,7 +25,7 @@
       return root.Rx;
     });
   } else if (typeof module == 'object' && module && module.exports == freeExports) {
-    module.exports = factory(root, module.exports, require('rx'), require('angular'));
+    module.exports = factory(root, module.exports, require('rxjs'), require('angular'));
   } else {
     root.Rx = factory(root, {}, root.Rx, root.angular);
   }

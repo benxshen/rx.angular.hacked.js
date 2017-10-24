@@ -41,7 +41,7 @@
 
     $scope
       .$toObservable('search')
-      .debounce(300)
+      .debounceTime(300)
       .map(function(data) { return data.newValue; })
       .distinctUntilChanged()
       .flatMapLatest(search)
