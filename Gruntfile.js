@@ -41,8 +41,6 @@ module.exports = function (grunt) {
           'src/factory.js',
           'src/observeonscope.js',
           'src/safeApply.js',
-          'src/$rootScopeExtensions.js',
-          'src/observableRuntimeExtensions.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
@@ -57,8 +55,6 @@ module.exports = function (grunt) {
           'src/factory.js',
           'src/observeonscope.js',
           'src/safeApply.js',
-          'src/$rootScopeExtensions.js',
-          'src/observableRuntimeExtensions.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
@@ -73,8 +69,6 @@ module.exports = function (grunt) {
           'src/factory.js',
           'src/observeonscope.js',
           'src/safeApply.js',
-          'src/$rootScopeExtensions.js',
-          'src/observableRuntimeExtensions.js',
           'src/scopescheduler.js',
           'src/headers/outro.js'
         ],
