@@ -11,14 +11,17 @@
           restrict: 'A',
           scope: { konamiCode: '&' },
           link: function(scope, element, attrs) {
-            var konamiCode = rx.Observable.fromArray(konamiArray);
+            var konamiCode = rx.Observable.from(konamiArray);
             var ObservableElementKeyUp = rx.Observable.fromEvent(element, 'keyup');
 
             ObservableElementKeyUp
               .map(keyCode)
-              .windowWithCount(konamiArray.length)
+              .windowCount(konamiArray.length)
               .flatMap(function (x) { return x.sequenceEqual(konamiCode); })
-              .filter(angular.identity)
+              .filter(function(x) {
+                console.log(arguments);
+                return angular.identity(x);
+              })
               .subscribe(function () { scope.$apply(scope.konamiCode); });
           }
         };

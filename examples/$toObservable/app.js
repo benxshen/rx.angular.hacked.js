@@ -44,7 +44,7 @@
       .debounceTime(300)
       .map(function(data) { return data.newValue; })
       .distinctUntilChanged()
-      .flatMapLatest(search)
+      .switchMap(search)
       .subscribe(function(val){ $scope.results = val; });
   });
 

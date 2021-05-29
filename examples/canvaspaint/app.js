@@ -28,7 +28,7 @@
 
       // Calculate mouse deltas
       console.log('cv.onAsObservable', rx.onAsObservable);
-      var mouseDiffs = mousemove.bufferWithCount(2, 1).select(function (x) {
+      var mouseDiffs = mousemove.bufferCount(2, 1).map(function (x) {
           return {
             first: getOffset(x[0]),
             second: getOffset(x[1])
@@ -36,13 +36,13 @@
       });
 
       // Merge mouse down and mouse up
-      var mouseButton = mousedown.select(returnTrue)
-          .merge(mouseup.select(returnFalse));
+      var mouseButton = mousedown.map(returnTrue)
+          .merge(mouseup.map(returnFalse));
 
       // Determine whether to paint or lift
-      var paint = mouseButton.select(function(down) {
+      var paint = mouseButton.switchMap(function(down) {
         return down ? mouseDiffs : mouseDiffs.take(0);
-      }).switchLatest();
+      });
 
       // Paint the results
       paint.subscribe(function (x) {

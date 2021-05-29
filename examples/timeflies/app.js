@@ -25,7 +25,7 @@
       var mousemove = rx.Observable.fromEvent($document, 'mousemove');
 
       // Get the offset on mousemove from the element
-      var mouseMoveOffset = mousemove.select(function (e) {
+      var mouseMoveOffset = mousemove.map(function (e) {
         var offset = getOffset(element[0]);
         return {
           offsetX : e.clientX - offset.left + $window.document.documentElement.scrollLeft,

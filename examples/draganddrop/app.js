@@ -18,7 +18,7 @@
       });
 
       // Combine mouse down with mouse move until mouse up
-      var mousedrag = mousedown.selectMany(function(imageOffset) {
+      var mousedrag = mousedown.mergeMap(function(imageOffset) {
           return mousemove.map(function (pos) {
               // calculate offsets from mouse down to mouse moves
               return {

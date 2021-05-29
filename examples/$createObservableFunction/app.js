@@ -29,7 +29,7 @@
       */
       $scope.$createObservableFunction('submit')
         .map(function (term) { return term; })
-        .flatMapLatest(searchWikipedia)
+        .switchMap (searchWikipedia)
         .subscribe(function(results) {
             $scope.results = results;
             $scope.$apply();
