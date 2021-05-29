@@ -41,6 +41,7 @@ module.exports = function (grunt) {
           'src/factory.js',
           'src/safeApply.js',
           'src/$rootScopeExtensions.js',
+          'src/async.filter.js',
           'src/headers/outro.js'
         ],
         dest: 'dist/rx.angular.js'
