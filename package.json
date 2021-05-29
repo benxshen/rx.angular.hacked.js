@@ -13,11 +13,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "rxjs": "*"
+    "rxjs": "5.5.12"
   },
   "devDependencies": {
-    "angular": "^1.4.9",
-    "grunt": "*",
+    "angular": "^1.8.2",
+    "grunt": "^1.4.0",
     "grunt-cli": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-jshint": "*",
