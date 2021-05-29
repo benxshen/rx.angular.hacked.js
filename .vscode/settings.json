@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.sass-cache": true,
+        "**/*.class": true,
+        "**/*.jar": true,
+        "**/.history": true,
+        "target": true,
+        ".mvn": true,
+        "**/node_modules": false
+    },
+    "explorerExclude.backup": null
+}
